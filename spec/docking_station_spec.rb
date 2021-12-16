@@ -15,7 +15,7 @@ describe DockingStation do
   it "stores a bike in the docking station when the user docks it" do
     subject.dock_bike(Bike.new)
 
-    expect(subject.docked_bikes).to eq bike
+    expect(subject.docked_bikes).to_not be_empty
   end
 
   it { should respond_to(:view_bike) }
@@ -31,8 +31,12 @@ describe DockingStation do
   end
 
   it "raises an error when trying to dock bikes to a full docking station" do
-    subject.dock_bike(Bike.new)
+    20.times { subject.dock_bike(Bike.new) }
     expect{subject.dock_bike(Bike.new)}.to raise_error(RuntimeError, "Docking station is full")
+  end
+
+  it "can store up to 20 bikes" do
+    expect{20.times {subject.dock_bike(Bike.new)}}.to_not raise_error()
   end
 
 end
