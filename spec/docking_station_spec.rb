@@ -4,16 +4,15 @@ describe DockingStation do
   it { should respond_to(:release_bike) }
 
   it "should release a working bike" do
-    subject.dock_bike(Bike.new)
-    new_bike = subject.release_bike
+    subject.dock(Bike.new)
 
-    expect(new_bike.working?).to be true
+    expect(subject.release_bike.working?).to be true
   end
 
-  it { should respond_to(:dock_bike) }
+  it { should respond_to(:dock) }
 
   it "stores a bike in the docking station when the user docks it" do
-    subject.dock_bike(Bike.new)
+    subject.dock(Bike.new)
 
     expect(subject.docked_bikes).to_not be_empty
   end
@@ -21,7 +20,7 @@ describe DockingStation do
   it { should respond_to(:view_bike) }
 
   it "allows the user to view which bikes are in the dock" do
-    subject.dock_bike(Bike.new)
+    subject.dock(Bike.new)
 
     expect(subject.view_bike).to eq(subject.docked_bikes)
   end
@@ -31,12 +30,13 @@ describe DockingStation do
   end
 
   it "raises an error when trying to dock bikes to a full docking station" do
-    20.times { subject.dock_bike(Bike.new) }
-    expect{subject.dock_bike(Bike.new)}.to raise_error(RuntimeError, "Docking station is full")
+    20.times { subject.dock(Bike.new) }
+    expect{subject.dock(Bike.new)}.to raise_error(RuntimeError, "Docking station is full")
   end
 
   it "can store up to 20 bikes" do
-    expect{20.times {subject.dock_bike(Bike.new)}}.to_not raise_error()
+    expect{20.times {subject.dock(Bike.new)}}.to_not raise_error()
+    expect(subject.docked_bikes.length).to eq 20
   end
 
 end

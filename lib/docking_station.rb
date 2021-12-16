@@ -1,6 +1,7 @@
 class DockingStation
 
   attr_reader :docked_bikes
+
   def initialize
     @docked_bikes = []
   end 
@@ -10,7 +11,7 @@ class DockingStation
     Bike.new
   end
 
-  def dock_bike(bike)
+  def dock(bike)
     fail "Docking station is full" unless @docked_bikes.length < 20
     @docked_bikes << bike
   end
