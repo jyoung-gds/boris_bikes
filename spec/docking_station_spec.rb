@@ -3,6 +3,13 @@ describe DockingStation do
 
   it { should respond_to(:release_bike) }
 
+  it "removes a bike from the dock when user releases bike" do
+    subject.dock(Bike.new)
+    subject.release_bike
+
+    expect(subject.docked_bikes).to be_empty
+  end
+  
   it "should release a working bike" do
     subject.dock(Bike.new)
 
