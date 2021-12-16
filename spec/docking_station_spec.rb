@@ -30,13 +30,13 @@ describe DockingStation do
   end
 
   it "raises an error when trying to dock bikes to a full docking station" do
-    20.times { subject.dock(Bike.new) }
+    DockingStation::DEFAULT_CAPACITY.times { subject.dock(Bike.new) }
     expect{subject.dock(Bike.new)}.to raise_error(RuntimeError, "Docking station is full")
   end
 
   it "can store up to 20 bikes" do
-    expect{20.times {subject.dock(Bike.new)}}.to_not raise_error()
-    expect(subject.docked_bikes.length).to eq 20
+    expect{DockingStation::DEFAULT_CAPACITY.times {subject.dock(Bike.new)}}.to_not raise_error()
+    expect(subject.docked_bikes.length).to eq DockingStation::DEFAULT_CAPACITY
   end
 
 end
