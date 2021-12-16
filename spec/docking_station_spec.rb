@@ -12,8 +12,6 @@ describe DockingStation do
 
   it { should respond_to(:dock_bike) }
 
-  it { should respond_to(:view_bike) }
-
   it "docks a bike in the docking station" do
     station = DockingStation.new
     bike = station.release_bike
@@ -22,6 +20,8 @@ describe DockingStation do
 
     expect(station.docked_bikes).to eq bike
   end
+
+  it { should respond_to(:view_bike) }
 
   it "shows which bikes are in the dock" do
     station = DockingStation.new
